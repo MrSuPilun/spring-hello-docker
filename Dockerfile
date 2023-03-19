@@ -5,7 +5,7 @@ VOLUME /tmp
 COPY .mvn/ .mvn
 COPY mvnw pom.xml ./
 
-RUN./mvnw dependency:resolve
+RUN ./mvnw dependency:resolve
 
 COPY ./src ./src
 RUN ./mvnw clean install
