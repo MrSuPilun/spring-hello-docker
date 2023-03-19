@@ -9,10 +9,10 @@ RUN chmod +x mvnw
 RUN ./mvnw dependency:go-offline
 
 COPY ./src ./src
+CMD ["./mvnw", "spring-boot:run"]
 RUN ./mvnw clean install
 
-ARG JAR_FILE=./opt/app/target/*.jar
+ARG JAR_FILE=.target/*.jar
 COPY ${JAR_FILE} app.jar
 EXPOSE 8080
-ENTRYPOINT ["java","-jar","opt/app/*.jar"]
-CMD ["./mvnw", "spring-boot:run"]
+ENTRYPOINT ["java","-jar","/*.jar"]
