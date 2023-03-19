@@ -1,19 +1,18 @@
-FROM eclipse-temurin:17-jdk-alpine
+FROM eclipse-temurin:17-jdk-alpine AS build
 WORKDIR /opt/app
 VOLUME /tmp
 
-COPY .mvn/ .mvn
+COPY .mvn/ ./
 COPY mvnw pom.xml ./
 
 RUN chmod +x mvnw
 RUN ./mvnw dependency:go-offline
 
-COPY ./src ./src
+COPY ./src ./
 RUN ./mvnw clean install
 
-CMD ["./mvnw", "spring-boot:run"]
-
-ARG JAR_FILE=/opt/app/target/*.jar
+ARG JAR_FILE=./opt/app/target/*.jar
 COPY ${JAR_FILE} app.jar
 EXPOSE 8080
+CMD ["./mvnw", "spring-boot:run"]
 ENTRYPOINT ["java","-jar","opt/app/*.jar"]
