@@ -12,7 +12,7 @@ RUN ./mvnw clean install
 
 CMD ["./mvnw", "spring-boot:run"]
 
-ARG JAR_FILE=target/helloworld-0.0.1-SNAPSHOT.jar
-COPY ${JAR_FILE} app.jar
+ARG JAR_FILE=target/*.jar
+COPY --from=builder ${JAR_FILE} app.jar
 EXPOSE 8080
-ENTRYPOINT ["java","-jar","/app.jar"]
+ENTRYPOINT ["java","-jar","opt/app/*.jar"]
