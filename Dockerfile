@@ -13,6 +13,6 @@ RUN ./mvnw clean install
 CMD ["./mvnw", "spring-boot:run"]
 
 ARG JAR_FILE=target/*.jar
-COPY --from=builder ${JAR_FILE} app.jar
+COPY ${JAR_FILE} app.jar
 EXPOSE 8080
 ENTRYPOINT ["java","-jar","opt/app/*.jar"]
